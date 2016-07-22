@@ -5,13 +5,14 @@
 
 <section id="all-production" is="year-switcher-section" class="all-lands production">
 
-  <h2>Natural resource production in {{ state_name }}</h2>
+  <h2>National energy production</h2>
 
   <div class="chart-selector-wrapper">
 
     {% include year-selector.html year_range=year_range %}
 
-    <p class="chart-description">The federal government collects data about <strong>energy-related natural resources</strong> produced on federal, state, and privately owned property in {{ state_name }}.</p>
+    <p class="chart-description">The U.S. Energy Information Administration collects data about <strong>energy-related natural resources</strong> produced on federal, state, and privately owned property nationwide. <a href="{{site.baseurl}}/downloads/#production-all">Data and documentation<icon class="fa fa-file-text-o u-padding-right"></icon></a> 
+  </a></p>
   </div>
 
   <div class="chart-list">
@@ -62,9 +63,5 @@
   {% endfor %}
 
   </div>
-
-  <a href="{{site.baseurl}}/downloads/#production-all">
-      <icon class="fa fa-file-text-o u-padding-right"></icon>Data about energy production on all lands and waters comes from the Energy Information Administration
-  </a>
 
 </section>

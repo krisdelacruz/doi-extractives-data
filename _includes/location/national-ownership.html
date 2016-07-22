@@ -1,11 +1,14 @@
 {% capture states_svg %}{{ site.baseurl }}/maps/states/all.svg{% endcapture %}
 
+<h3>Land ownership</h2>
+
 <section class="container-outer land-ownership">
   <section class="text-container">
-    <p><strong>{{ state_name }}, {{ site.data.land_stats[state_id].federal_percent | percent }} percent of land is owned by the federal government.</strong></p>
+    <p>Broadly speaking, USEITI focuses on data about natural resource extraction on federal lands and waters, both because it results in several types of federal revenue and because we have more data about it. When companies extract natural resources on federal land, they pay royalties, rents, bonuses, and other fees — much like they would to any landowner.</p>
 
-    <p>When companies extract natural resources on federal land, they pay royalties, rents, bonuses, and other fees — much like they would to any landowner.</p>
-    <p>Companies also report more data about what resources are extracted on government-owned land than on private land. Learn more about <a href="{{ site.baseurl }}/how-it-works/ownership/">natural resources and land ownership</a> in the U.S.</p>
+    <p>Federal land represents {{ site.data.land_stats[state_id].federal_percent | percent }}% of all land in the United States, much of which is concentrated in the American West. Unlike land (which can also be owned by states, local governments, corporations, or private individuals), the waters and submerged lands of the Outer Continental Shelf are entirely administered by the federal government. This means that all offshore drilling and energy generation takes place in federal waters.</p>
+
+    <p>In 2013, natural resource extraction on federal lands and waters resulted in over $12.26 billion in federal revenue. Offshore extraction accounted for about 64% of that revenue.</p>
   </section>
 
   <aside class="map-container">
