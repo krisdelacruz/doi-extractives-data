@@ -8,7 +8,7 @@
     <p>Unlike land (which can also be owned by <a href="{{ site.baseurl }}/how-it-works/ownership/">states, local governments, corporations, or private individuals</a>), the waters and submerged lands of the Outer Continental Shelf are entirely administered by the federal government. This means that all offshore drilling and energy generation takes place in federal waters.</p>
   </section>
 
-  <aside class="map-container">
+  <aside class="map-container wide">
     <eiti-data-map color-scheme="Reds" steps="9">
       {%
         include state-map.html
@@ -18,8 +18,11 @@
         ownership=true
       %}
     </eiti-data-map>
-    <aside class="legend-container">
-      {% include maps/federal_land_ownership_legend.svg %}
+    <aside class="legend-container wide">
+      {% 
+        include maps/federal_land_ownership_legend.svg 
+        is_wide='wide'
+      %}
     </aside>
   </aside>
 

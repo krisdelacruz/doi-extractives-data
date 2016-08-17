@@ -28,11 +28,11 @@ data-map {
 
     .svg-container {
       @include span-columns(8);
-
-      &.wide {
-        @include span-columns(12);
-        @include omega();
-      }
+    }
+    
+    &.wide {
+      @include span-columns(12);
+      @include omega();
     }
 
     .legend-container {
