@@ -11,6 +11,8 @@
     this.update();
   };
 
+  var WITHHELD_FLAG = 'Withheld';
+
   var setYear = function(year) {
     var root = d3.select(this);
 
@@ -24,19 +26,47 @@
         return JSON.parse(yearVals);
       }
 
-      function cellData(data, year, property) {
+      function coerceNumber(num) {
+        return typeof(num) == undefined || typeof(num) == 'undefined'
+          ? WITHHELD_FLAG
+          :  num;
+      }
+
+      function cellData(data, year, property, coerce) {
         if (data && data[year] && property) {
-          return data[year][property] || 0;
+          return data[year][property] || coerceNumber(coerce);
         } else if (data && !property) {
-          return data[year] || 0;
+          return data[year] || coerceNumber(coerce);
         } else {
-          return 0;
+          return coerceNumber(coerce);
+        }
+      }
+
+      function formatText(context, value) {
+        var format = d3.format(context.getAttribute('data-format') || ',')
+
+        if (context.getAttribute('data-format') === '%') {
+          format = function(d) {
+            if (d === 0) {
+              return 0;
+            } else if (d < 1) {
+              return '<1%';
+            }
+            return d3.format('%')(d / 100);
+          }
+        }
+
+        if (value === WITHHELD_FLAG || !format) {
+          return value;
+        } else {
+          return format(value);
         }
       }
 
       var year = year || '2013';
       var bars = root.selectAll('[data-value]');
       var texts = root.selectAll('[data-value-text]');
+      var sentences = root.selectAll('[data-sentence]');
       var swatches = root.selectAll('[data-value-swatch]');
       var label = d3.select(this.parentElement).select('label');
 
@@ -45,11 +75,44 @@
       bars.datum(function() {
           var data = parseYearVals(this)
           var property = this.getAttribute('data-years-property');
-          return cellData(data, year, property);
+          return cellData(data, year, property, 0);
         })
         .attr('data-value', function(d) {
           return d;
         });
+
+      var sentencesData = sentences.datum(function() {
+          var data = parseYearVals(this)
+          var property = this.getAttribute('data-years-property');
+          return cellData(data, year, property);
+        }).attr('data-sentence', function(d) {
+          return d;
+        })
+        .attr('data-withheld', function(d) {
+          return d === WITHHELD_FLAG
+            ? true
+            : false;
+        });
+
+      sentencesData.select('.withheld')
+        .attr('aria-hidden', function(d) {
+          return d === WITHHELD_FLAG
+            ? false
+            : true;
+        });
+
+      sentencesData.select('.has-data')
+        .attr('aria-hidden', function(d) {
+          return d === WITHHELD_FLAG
+            ? true
+            : false;
+        });
+
+      sentencesData.select('[data-value]').attr('data-value', function(d) {
+          return d;
+        }).text(function(d) {
+          return formatText(this, d);
+        })
 
       texts.datum(function() {
           var data = parseYearVals(this)
@@ -60,30 +123,12 @@
           return d;
         })
         .text(function(d) {
-          var format = d3.format(this.getAttribute('data-format') || ',')
-
-          if (this.getAttribute('data-format') === '%') {
-            format = function(d) {
-              if (d === 0) {
-                return 0;
-              } else if (d < 1) {
-                return '<1%';
-              }
-
-              return d3.format('%')(d / 100);
-            }
-          }
-
-          if (format) {
-            return format(d);
-          } else {
-            return d;
-          }
+          return formatText(this, d);
         });
 
       var that = this;
       swatches.datum(function() {
-          var data = parseYearVals(this)
+          var data = parseYearVals(this);
           var property = this.getAttribute('data-years-property');
           return cellData(data, year, property);
         })
@@ -100,14 +145,35 @@
         .attr('data-year', year)
         .text(year)
 
+      sentences.select('[data-year]')
+        .attr('data-year', year)
+        .text(year)
+
       rows.datum(function(){
         var data = parseYearVals(this);
-        return data[year] || 0;
+        return data[year] || WITHHELD_FLAG;
       })
       .attr('aria-hidden', function (d) {
         return !d;
+
       });
     }
+  }
+
+  var show = function(fips) {
+    var rows = d3.select(this).selectAll('tbody > tr');
+    rows.classed('selected', false);
+
+    rows.selectAll('[data-sentence]').attr('aria-hidden', true);
+
+    // show matching row
+    rows.filter(function(row) {
+      return this.getAttribute('data-fips') === fips;
+    })
+    .classed('selected', true)
+    .select('[data-sentence]')
+    .attr('aria-hidden', false);
+
   }
 
   var update = function() {
@@ -277,6 +343,8 @@
         update: {value: update},
 
         setYear: {value: setYear},
+
+        show: {value: show},
 
         orient: {
           get: function() {
