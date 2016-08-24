@@ -8,9 +8,9 @@ opt_in: true
 state_land: |
     The state government of Montana administers 5.2 million surface acres of land (about 5.6% of the state) and 6.2 million mineral acres. For detailed information about land ownership in each county, the Montana State Library maintains [public and private land ownership maps](https://mslservices.mt.gov/Geographic_Information/Maps/Land_Ownership/Default).
 state_revenue: |
-    Revenue from natural resource extraction on federal, state, and private land is a significant source of revenue for state and local governments in Montana. In 2014, natural resource revenue streams accounted for 17.4% of revenue collected by the Montana Department of Revenue. Over the last four years, Montana’s overall revenue has increased while revenue from natural resources has stayed relatively flat.
+    Revenue from natural resource extraction on federal, state, and private land is a significant source of revenue for state and local governments in Montana. In FY 2014, the state of Montana and county tax collectors collected $446 million from natural resource revenues. The Oil & Natural Gas Production tax accounts for roughly half of Montana’s revenue from natural resource extraction.
 
-    In FY2014, the state of Montana and county tax collectors collected $446 million. The Oil & Natural Gas Production tax accounts for roughly half of Montana’s revenue from natural resource extraction.
+    **Revenue sustainability:** In 2014, natural resource revenue streams accounted for 17.4% of revenue collected by the Montana Department of Revenue. Over the last four years, Montana’s overall revenue has increased while revenue from natural resources has stayed relatively flat; the percentage of revenue from natural resources has decreased from 13.5% of total revenue that went to the state general fund in 2010 to 11.3% in 2014.
 state_disbursements: |
     [State agencies](#state-agencies) distribute revenue according to the [Montana State Code](http://leg.mt.gov/bills/mca_toc/), which is defined by the legislature.
 ---
