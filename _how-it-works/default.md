@@ -24,19 +24,24 @@ permalink: /how-it-works/
 
 <section accordion="how-it-works-landing" accordion-desktop="false" class="container-page-wrapper landing-wrapper">
   <section class="container">
-    <h2 id="process" class="h3 landing-section_category">The process</h2>
-    <div class="container landing-section_open overview">
-      <p>The federal government awards rights to extract natural resources from federal lands, and those resources eventually result in revenue. That process differs depending on the resource and whether extraction takes place onshore or offshore, but it generally follows five steps:</p>
-      <p class="para-lg landing-steps">
-        <span>Plan <icon class="icon-chevron-lg"></icon></span>
-        <span>Lease <icon class="icon-chevron-lg"></icon></span>
-        <span>Explore <icon class="icon-chevron-lg"></icon></span>
-        <span>Develop <icon class="icon-chevron-lg"></icon></span>
-        <span>Decommission</span>
-      </p>
-    </div>
+    <h2 id="process" class="landing-section_category">How do natural resources result in federal revenue?</h2>
+      <h3 class="landing-section_category"><a href="{{site.baseurl}}/how-it-works/production/">Production</a></h3>
+        <div class="container landing-section_open overview">
+          <p class="landing-description">The U.S. is a world leader in producing natural resources, including oil, gas, coal, renewable energy, and nonenergy minerals.
+          <a href="{{site.baseurl}}/how-it-works/production/">Learn about production &#8594;</a></p>
+        </div>
+      <!-- <div class="container landing-section_open overview">
+        <p>The federal government awards rights to extract natural resources from federal lands, and those resources eventually result in revenue. That process differs depending on the resource and whether extraction takes place onshore or offshore, but it generally follows five steps:</p>
+        <p class="para-lg landing-steps">
+          <span>Plan <icon class="icon-chevron-lg"></icon></span>
+          <span>Lease <icon class="icon-chevron-lg"></icon></span>
+          <span>Explore <icon class="icon-chevron-lg"></icon></span>
+          <span>Develop <icon class="icon-chevron-lg"></icon></span>
+          <span>Decommission</span>
+        </p>
+      </div> -->
     <div class="container landing-section_open landing-oil_gas-wrapper">
-      <h3 class="h3 landing-heading"><a href="{{site.baseurl}}/how-it-works/offshore-oil-gas/">Oil and gas</a></h3>
+      <h4 class="h3 landing-heading"><a href="{{site.baseurl}}/how-it-works/offshore-oil-gas/">Oil and gas</a></h4>
       <a href="{{site.baseurl}}/how-it-works/offshore-oil-gas/">
         <div class="landing-oil_gas">
           <p class="landing-description">Oil and gas (or natural gas) are fossil fuels that form underground on land and under the ocean. They are abundant, but not renewable.</p>
@@ -45,7 +50,7 @@ permalink: /how-it-works/
     </div>
     </div>
     <div class="container landing-section_open landing-coal-wrapper">
-      <h3 class="h3 landing-heading"><a href="{{site.baseurl}}/how-it-works/coal/">Coal</a></h3>
+      <h4 class="h3 landing-heading"><a href="{{site.baseurl}}/how-it-works/coal/">Coal</a></h4>
       <a href="{{site.baseurl}}/how-it-works/coal/">
         <div class="landing-coal">
           <p class="landing-description">Miners extract coal through surface and subsurface mining. In 2013, the U.S. was the world’s second largest coal producer after China.</p>
@@ -53,7 +58,7 @@ permalink: /how-it-works/
       </a>
     </div>
     <div class="container landing-section_open landing-minerals-wrapper">
-      <h3 class="h3 landing-heading"><a href="{{site.baseurl}}/how-it-works/minerals/">Nonenergy minerals</a></h3>
+      <h4 class="h3 landing-heading"><a href="{{site.baseurl}}/how-it-works/minerals/">Nonenergy minerals</a></h4>
       <a href="{{site.baseurl}}/how-it-works/minerals/">
         <div class="landing-minerals">
           <p class="landing-description">Gold, copper, and iron are the main sources of nonenergy mineral revenues. In 2013, U.S. metal production totaled $32 billion.</p>
@@ -61,7 +66,7 @@ permalink: /how-it-works/
       </a>
     </div>
     <div class="container landing-section_open landing-renewables-wrapper">
-      <h3 class="h3 landing-heading"><a href="{{site.baseurl}}/how-it-works/onshore-renewables/">Renewable energy</a></h3>
+      <h4 class="h3 landing-heading"><a href="{{site.baseurl}}/how-it-works/onshore-renewables/">Renewable energy</a></h4>
       <a href="{{site.baseurl}}/how-it-works/onshore-renewables/">
         <div class="landing-renewables">
           <p class="landing-description">Renewable energy resources — including geothermal, solar, wind, biomass, and hydrokinetic energy — comprised about 10% of U.S. energy consumption in 2013.</p>
@@ -77,14 +82,6 @@ permalink: /how-it-works/
 			<div>
 				<p class="landing-description">Private individuals and corporations, as well as federal, state, local, and tribal governments, can own land and the oil, gas, coal, and other minerals found below the surface.
         <a href="{{site.baseurl}}/how-it-works/ownership/">Learn about land and resource ownership &#8594;</a></p>
-			</div>
-		</div>
-		<div class="container landing-section" accordion-item>
-			<h3 class="h3 landing-heading"><a href="{{site.baseurl}}/how-it-works/production/">Production</a></h3>
-			<button><label class="sr-only">Toggle for production section</label></button>
-			<div>
-				<p class="landing-description">The U.S. is a world leader in producing natural resources, including oil, gas, coal, renewable energy, and nonenergy minerals.
-        <a href="{{site.baseurl}}/how-it-works/production/">Learn about production &#8594;</a></p>
 			</div>
 		</div>
 		<div class="container landing-section" accordion-item>
