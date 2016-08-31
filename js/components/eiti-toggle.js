@@ -1,4 +1,5 @@
 (function(exports) {
+  'use strict';
 
   var symbols = {
     collapsed: '__collapsedText',
@@ -6,8 +7,8 @@
   };
 
   var innerMarkup = {
-    bars: '<span class="u-visually-hidden"><icon class="icon-bars"></icon></span>',
-    x: '<span class="u-visually-hidden"><icon class="icon-close-x"></icon></span>'
+    bars: '<span hidden><icon class="icon-bars"></icon></span>',
+    x: '<span hidden><icon class="icon-close-x"></icon></span>'
   };
 
   var EXPANDED = 'aria-expanded';
@@ -30,19 +31,10 @@
       attributeChangedCallback: {value: function(attr, prev, value) {
         switch (attr) {
           case EXPANDED:
-            update.call(this);
+            update.call(this, attr, value);
             break;
         }
       }},
-
-      controlAttribute: {
-        get: function() {
-          return this[attrControl] || HIDDEN;
-        },
-        set: function(attr) {
-          this[attrControl] = attr;
-        }
-      },
 
       collapsedText: {
         get: function() {
@@ -84,13 +76,15 @@
           }
 
           var toggleId = this.getAttribute(CONTROLS);
-          var togglers = document.querySelectorAll('[data-toggler=' + toggleId + ']');
+          var togglers = document.querySelectorAll(
+            '[data-toggler=' + toggleId + ']'
+          );
 
           if (togglers.length) {
 
             // togglers is a NodeList, not an Array
             if (togglers) {
-              Array.prototype.forEach.call(togglers, function(toggle) {
+              [].forEach.call(togglers, function(toggle) {
                 toggle.setAttribute(EXPANDED, expanded);
               });
             }
