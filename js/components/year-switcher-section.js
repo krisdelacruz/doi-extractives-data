@@ -9,7 +9,7 @@
 
     var mapTables = root.selectAll('.eiti-data-map-table');
 
-    var chartTables = mapTables.selectAll('table[is="bar-chart-table"]')
+    var chartTables = mapTables.selectAll('table[is="bar-chart-table"]');
 
     var update = function(year) {
       charts.property('x', year);
@@ -17,10 +17,10 @@
         this.setYear(year);
       });
       select.property('value', year);
-      chartTables.each(function(){
+      chartTables.each(function() {
         this.setYear(year);
         this.update();
-      })
+      });
     };
 
     select.on('change.year', function() {
@@ -36,15 +36,18 @@
   var detached = function() {
   };
 
-  exports.EITIYearSwitcherSection = document.registerElement('year-switcher-section', {
-    'extends': 'section',
-    prototype: Object.create(
-      HTMLElement.prototype,
-      {
-        attachedCallback: {value: attached},
-        detachdCallback: {value: detached}
-      }
-    )
-  })
+  exports.EITIYearSwitcherSection = document.registerElement(
+    'year-switcher-section',
+    {
+      'extends': 'section',
+      prototype: Object.create(
+        HTMLElement.prototype,
+        {
+          attachedCallback: {value: attached},
+          detachdCallback: {value: detached}
+        }
+      )
+    }
+  );
 
 })(this);
