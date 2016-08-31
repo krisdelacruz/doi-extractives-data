@@ -1,10 +1,8 @@
 // globals d3, eiti, EITIBar
 (function() {
-  // 'use strict';
+  'use strict';
 
   var root = d3.select('#reconciliation');
-  var filterToggle = root.select('button.toggle-filters');
-  var revenueTypeList = root.select('#revenue-types');
   var companyList = root.select('#companies');
 
   var getter = eiti.data.getter;
@@ -12,18 +10,20 @@
   var grouper;
   var formatNumber = eiti.format.commaSeparatedDollars;
   var formatPercent = eiti.format.percent;
-  var roundedPercent = d3.format('%.1');
-  var REVENUE_TYPE_PREFIX = /^[A-Z]+(\/[A-Z]+)?\s+-\s+/;
 
-  var dialogWithExtension = document.querySelector('.flowchart-dialog.flowchart-columns_right');
-  var extension = document.querySelector('.flowchart-stem_bottom_right_extra_long');
+  var dialogWithExtension = document.querySelector(
+    '.flowchart-dialog.flowchart-columns_right'
+  );
+  var extension = document.querySelector(
+    '.flowchart-stem_bottom_right_extra_long'
+  );
   var dialogBottom = document.querySelector('.flowchart-dialog_bottom');
 
   function setExtHeight () {
     var newHeight = dialogBottom.getBoundingClientRect().bottom -
       dialogWithExtension.getBoundingClientRect().bottom;
     extension.style.height = newHeight + 'px';
-  };
+  }
 
   // initialize height of extension path
   setExtHeight();
@@ -99,19 +99,20 @@
   var hash = eiti.explore.hash()
     .on('change', state.merge);
 
-  function isException (val, vart) {
-    if (typeof(val) === 'string') {
+  function isException(val) {
+    if (typeof val === 'string') {
       val = val.trim();
-      return (val === 'did not participate' || val === 'did not report' || val === 'N/A');
+      return val === 'did not participate'
+          || val === 'did not report'
+          || val === 'N/A';
     }
   }
 
-  function isMaterial (d) {
+  function isMaterial(d) {
     var varianceVal = Math.abs(d.value - d.company);
 
-    var overThreshold = !!(varianceKey[d.name].threshold < d.variance);
+    var overThreshold = varianceKey[d.name].threshold < d.variance;
     if (overThreshold) {
-
       if (varianceVal > varianceKey[d.name].floor) {
         return true;
       }
@@ -146,12 +147,13 @@
 
     updateFilterDescription(state);
 
+    var reported = 'Government Reported';
     grouper = d3.nest()
       .rollup(function(leaves) {
 
         return leaves.map(function(d){
           return {
-            value: d['Government Reported'],
+            value: d[reported],
             company: d['Company Reported'],
             variance: d['Variance Percent'],
             varianceDollars: d['Variance Dollars']
@@ -159,10 +161,8 @@
         });
       })
       .sortValues(function(a, b) {
-        return d3.descending(+a['Government Reported'], +b['Government Reported']);
+        return d3.descending(+a[reported], +b[reported]);
       });
-
-    var hasType = !!query.type;
 
     grouper.key(getter('revenueType'));
 
@@ -301,7 +301,7 @@
       .attr('class', 'variance');
   }
 
-  function updateRevenueItem(selection, extent) {
+  function updateRevenueItem(selection) {
     selection.select('.name')
       .text(function(d) {
         return varianceKey[d.name].name;
@@ -359,16 +359,12 @@
 
   function removeRevenueTypePrefix(row) {
     if (!row.revenueType) {
-      row.revenueType = row['Type'];
+      row.revenueType = row.Type;
     }
   }
 
   function filterChange() {
     state.set(this.name, this.value, this.company, this.variance);
-  }
-
-  function identity(d) {
-    return d;
   }
 
 })(this);
