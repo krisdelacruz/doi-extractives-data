@@ -23,7 +23,6 @@
   require('document-register-element');
 
   exports.EITIMap = require('../components/eiti-map');
-  exports.EITISlider = require('../components/eiti-slider');
   exports.EITIToggle = require('../components/eiti-toggle');
 
   // FIXME: does this export anything?
