@@ -37,11 +37,10 @@
   exports.Accordion = require('../components/accordion');
 
   $(function () {
-    var glossary = new exports.Glossary(),
-      accordion = new exports.Accordion();
+    exports.glossary = new exports.Glossary();
+    exports.accordion = new exports.Accordion();
   });
 
-  var svg4everybody = require('svg4everybody');
-  svg4everybody();
+  require('svg4everybody')();
 
 })(window);
