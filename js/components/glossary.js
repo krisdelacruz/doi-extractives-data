@@ -1,3 +1,4 @@
+/* globals List */
 (function(exports) {
   'use strict';
 
@@ -60,7 +61,8 @@
     // Bind listeners
     self.$toggle.on('click', this.toggle.bind(this));
     self.$body.on('click', '.toggle', this.toggle.bind(this));
-    self.$body.on('click', '.glossary-term', this.toggleTermFromClick.bind(this) );
+    self.$body.on('click', '.glossary-term',
+                  this.toggleTermFromClick.bind(this));
     self.$search.on('input', this.handleInput.bind(this));
 
     $(document.body).on('keyup', this.handleKeyup.bind(this));
@@ -124,8 +126,11 @@
       this.$search.val(term);
 
       // Highlight the term and remove other highlights
-      this.$body.find('.term--highlight').removeClass('term--highlight');
-      this.$body.find('span[data-term="' + term + '"]').addClass('term--highlight');
+      this.$body.find('.term--highlight')
+        .removeClass('term--highlight');
+      this.$body.find('span[data-term="' + term + '"]')
+        .addClass('term--highlight');
+
       this.list.filter(function(item) {
         return item._values['glossary-term'].toLowerCase() === term;
       });
@@ -146,7 +151,8 @@
 
     toggleTermFromClick: function(event){
       var $target = $(event.target);
-      var doExpand = $target.parent().attr( 'aria-expanded') === 'true' ? 'false' : 'true';
+      var doExpand = $target.parent()
+        .attr('aria-expanded') === 'true' ? 'false' : 'true';
 
       $target
         .siblings( 'p' )
