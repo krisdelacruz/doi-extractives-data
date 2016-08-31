@@ -309,28 +309,28 @@
    * @example
    * window.addEventListener('resize', throttle(someFunction, 150, window));
    */
-  eiti.util.throttle = function throttle(fn, threshhold, scope) {
-    threshhold || (threshhold = 250);
+  eiti.util.throttle = function throttle(fn, threshold, scope) {
+    threshold = threshold || 250;
     var last,
         deferTimer;
     return function () {
       var context = scope || this;
 
-      var now = +new Date,
+      var now = +new Date(),
           args = arguments;
-      if (last && now < last + threshhold) {
+      if (last && now < last + threshold) {
         // hold on to it
         clearTimeout(deferTimer);
         deferTimer = setTimeout(function () {
           last = now;
           fn.apply(context, args);
-        }, threshhold);
+        }, threshold);
       } else {
         last = now;
         fn.apply(context, args);
       }
     };
-  }
+  };
 
   /**
    * Coerce a d3-style format string or function into a number
