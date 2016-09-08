@@ -238,17 +238,11 @@
         .range(range)
         .clamp(true);
 
-      var offset;
       var sizeProperty = 'width';
-      var offsetProperty = 'margin-left';
 
       if (negative) {
         var length = max - min;
         zero = 100 * (0 - min) / length;
-        offset = d3.scale.linear()
-          .domain([min, 0, max])
-          .range([0, zero, zero])
-          .clamp(true);
         width = d3.scale.linear()
           .domain([min, 0, max])
           .range([100 * -min / length, 0, 100 * max / length])
@@ -257,7 +251,6 @@
 
       if (this.orient === 'vertical') {
         sizeProperty = 'height';
-        offsetProperty = 'bottom';
       }
 
       var that = this;
@@ -322,12 +315,6 @@
           });
         } else {
           bar.style.setProperty(sizeProperty, Math.abs(size) + '%');
-        }
-
-        if (offset) {
-          bar.style.setProperty(offsetProperty, offset(value) + '%');
-        } else {
-          bar.style.removeProperty(offsetProperty);
         }
       });
 
