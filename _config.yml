@@ -128,6 +128,9 @@ defaults:
     values:
       layout: offshore-area
 
+redcarpet:
+  extensions: ['smart']
+
 shruggie:
   - d8394cf27efbf8ae2f96ee12788eb257f4358a42
   - 11652cb6b75c1e914857a215e8f8eca7a599e0e0
