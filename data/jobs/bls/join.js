@@ -24,6 +24,13 @@ const fields = {
   jobs:     'annual_avg_emplvl'
 };
 
+const EXTRACTIVES_TYPES = [
+  'extractives',
+  'wind',
+  'solar',
+  'geothermal'
+];
+
 async.mapSeries(
   years,
   processYear,
@@ -66,12 +73,28 @@ function processYear(year, done) {
             return next(error);
           }
 
-          ext = data.filter(function(d) {
+          ext = ext.concat(data.filter(function(d) {
             return validFips(d);
-          });
+          }));
 
           next();
         });
+      },
+      function readRenewables(next) {
+        async.map(EXTRACTIVES_TYPES, function(type, nextFile) {
+          var filename = path.join(String(year), type + '.csv');
+          readData(filename, function(error, data) {
+            if (error) {
+              return nextFile(error);
+            }
+
+            ext = ext.concat(data.filter(function(d) {
+              return validFips(d);
+            }));
+
+            nextFile();
+          });
+        }, next);
       }
     ],
 
@@ -79,6 +102,10 @@ function processYear(year, done) {
       if (error) {
         return done(error);
       }
+
+      // TODO: group by all columns except `fields.jobs` and sum the jobs
+      // count, a la this SQL:
+      // SELECT *, SUM(jobs) AS jobs GROUP BY ...;
 
       console.warn('%d: got %d extractives rows, %d all',
                    year, ext.length, Object.keys(all).length);
