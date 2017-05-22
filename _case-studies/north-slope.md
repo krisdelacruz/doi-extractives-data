@@ -1,6 +1,15 @@
 ---
 title: 'North Slope Borough, Alaska | Case Studies'
 title_display: 'North Slope Borough, Alaska'
+description: The U.S. has experienced rapid change in domestic oil production since 2008, when crude oil production reached a low of 3.98 million bbl per day. Just five years later, the U.S. had nearly doubled its daily production output, with Texas and North Dakota driving much of the growth. Alaska did not experience the same production boom, with crude oil output steadily declining over the past decade. In spite of that downward trend, Alaska remained  the fourth largest state producer of crude oil in 2015, and the nation's largest oil-producing county is Alaska's North Slope Borough.
+tag:
+- Local
+- Case study
+- North
+- Slope
+- Borough
+- Alaska
+- Oil
 layout: content
 permalink: /case-studies/north-slope/
 resource: oil
@@ -23,10 +32,6 @@ selector: list
 ---
 
 > The U.S. has experienced rapid change in domestic oil production since 2008, when crude oil production reached a low of 3.98 million {{ "bbl" | term:"barrel" }} per day. Just five years later, the U.S. had nearly doubled its daily production output, with Texas and North Dakota driving much of the growth.[^1] [^2] Alaska did not experience the same production boom, with crude oil output steadily declining over the past decade.[^3] In spite of that downward trend, Alaska remained  the fourth largest state producer of crude oil in 2015, and the nation's largest oil-producing county is Alaska's North Slope Borough.[^4]
-
-{% include case-studies/_selector.html screen="mobile" %}
-
-{% include case-studies/_maps.html screen="mobile" %}
 
 ## Geology and history
 
@@ -90,12 +95,12 @@ The table below highlights the data sources used to compile this narrative, as w
 
 This case study is current as of August 2016. Many data sources are updated regularly, and may show more recent figures than are included here.
 
-<table>
+<table class="article_table">
   <thead>
     <tr>
-      <td>Measure</td>
-      <td>Data availability</td>
-      <td>Data gaps</td>
+      <th>Measure</th>
+      <th>Data availability</th>
+      <th>Data gaps</th>
     </tr>
   </thead>
   <tbody>

@@ -6,20 +6,30 @@ title_display: Federal Revenue by Location
 breadcrumb:
   - title: Downloads
     permalink: /downloads/
+description: There are three types of federal-revenue-by-location datasets available on this site. One includes offshore data, another includes onshore data, and the third has data on revenues that aren't associated with a specific location. We have versions of these datasets available for calendar and fiscal years 2006 through 2016. They are all accounting year data.
+tag:
+- Data
+- Downloads
+- Documentation
+- USEITI data
+- Federal
+- Revenue
+- Location
+- By location
 ---
 
-> There are three types of federal-revenue-by-location datasets available on this site. One includes offshore data, another includes onshore data, and the third has data on revenues that aren't associated with a specific location. We have versions of these datasets available for calendar and fiscal years 2006 through 2015. They are all accounting year data.
+> There are three types of federal-revenue-by-location datasets available on this site. One includes offshore data, another includes onshore data, and the third has data on revenues that aren't associated with a specific location. We have versions of these datasets available for calendar and fiscal years 2006 through 2016. They are all accounting year data.
 
 Download calendar year data:
 
 <ul class="downloads-download_links list-unstyled">
-  <li><a href="{{site.baseurl}}/downloads/federal_revenue_offshore_acct-year_CY06-15_2016-09-15.xlsx"><icon class="icon-cloud icon-padded"></icon>
-   Offshore dataset (xlsx, 475 KB)
+  <li><a href="{{ site.baseurl }}/downloads/federal_revenue_offshore_acct-year_CY06-16_2017-05-04.xlsx"><icon class="icon-cloud icon-padded"></icon>
+   Offshore dataset (xlsx, 495 KB)
   </a></li>
-  <li><a href="{{site.baseurl}}/downloads/federal_revenue_onshore_acct-year_CY06-15_2016-09-15.xlsx"><icon class="icon-cloud icon-padded"></icon>
-    Onshore dataset (xlsx, 1.2 MB)
+  <li><a href="{{ site.baseurl }}/downloads/federal_revenue_onshore_acct-year_CY06-16_2017-05-04.xlsx"><icon class="icon-cloud icon-padded"></icon>
+    Onshore dataset (xlsx, 2.5 MB)
   </a></li>
-  <li><a href="{{site.baseurl}}/downloads/federal_revenue_civil-penalties_other-rev_not-tied-to-lease_acct-year_CY06-15_2016-09-15.xlsx"><icon class="icon-cloud icon-padded"></icon>
+  <li><a href="{{ site.baseurl }}/downloads/federal_revenue_civil-penalties_other-rev_not-tied-to-lease_acct-year_CY06-16_2017-05-04.xlsx"><icon class="icon-cloud icon-padded"></icon>
     Civil penalties and other revenues not associated with a lease (xlsx, 11 KB)
   </a></li>
 </ul>
@@ -27,13 +37,13 @@ Download calendar year data:
 Download fiscal year data:
 
 <ul class="downloads-download_links list-unstyled">
-  <li><a href="{{site.baseurl}}/downloads/federal_revenue_offshore_acct-year_FY06-15_2016-09-15.xlsx"><icon class="icon-cloud icon-padded"></icon>
-    Offshore dataset (xlsx, 437 KB)
+  <li><a href="{{ site.baseurl }}/downloads/federal_revenue_offshore_acct-year_FY06-16_2017-04-07.xlsx"><icon class="icon-cloud icon-padded"></icon>
+    Offshore dataset (xlsx, 481 KB)
   </a></li>
-  <li><a href="{{site.baseurl}}/downloads/federal_revenue_onshore_acct-year_FY06-15_2016-09-15.xlsx"><icon class="icon-cloud icon-padded"></icon>
-    Onshore dataset (xlsx, 1.2 MB)
+  <li><a href="{{ site.baseurl }}/downloads/federal_revenue_onshore_acct-year_FY06-16_2017-04-21.xlsx"><icon class="icon-cloud icon-padded"></icon>
+    Onshore dataset (xlsx, 1.3 MB)
   </a></li>
-  <li><a href="{{site.baseurl}}/downloads/federal_revenue_civil-penalties_other-rev_not-tied-to-lease_acct-year_FY06-15_2016-09-15.xlsx"><icon class="icon-cloud icon-padded"></icon>
+  <li><a href="{{ site.baseurl }}/downloads/federal_revenue_civil-penalties_other-rev_not-tied-to-lease_acct-year_FY06-16_2017-04-07.xlsx"><icon class="icon-cloud icon-padded"></icon>
     Civil penalties and other revenues not associated with a lease (xlsx, 10 KB)
   </a></li>
 </ul>
@@ -56,6 +66,16 @@ Companies can adjust and correct their payments for up to seven years after a tr
 
 Our site has two federal revenue datasets. The one on this page is organized by location. [This one]({{ site.baseurl }}/downloads/federal-revenue-by-company/) is organized by the company that paid the revenue. However, the national revenue totals are slightly different (by about 90 million dollars). This is because the the company revenues dataset excludes revenue from offshore right-of-ways because they don't map to an offshore planning area.
 
+### Note: Geothermal rate details
+
+The fees and rates for revenue from geothermal resources on federal land depend on whether the land is leased competitively or noncompetitively.
+
+Also, different fee rates apply to pre-2005 leases and to direct use facilities:
+
+* For leases signed before the Energy Policy Act of 2005, the lessee’s reasonable actual transmission and generation costs are deducted from gross proceeds from electricity sales, and the resulting value is multiplied by the lease royalty rate (usually 10%).
+* For {{ "direct use" | term_end }}, the lessee pays the equivalent value of the least expensive, reasonable alternative energy source. Thermal energy utilized must be measured by lessee at the inlet and outlet of facility. The resulting value is multiplied by the lease royalty rate of 10%.
+
+The Bureau of Land Management has [more information about geothermal energy on federal lands](http://www.blm.gov/wo/st/en/prog/energy/geothermal.html).
 
 ## Offshore data dictionary
 

@@ -7,6 +7,7 @@ $eiti-logo-width: 195px;
 $weight-light: 200; // use
 $weight-book: 400; // use
 $weight-bold: 700; // use
+$line-height-caps: 1.2;
 
 $sans-serif: Lato, 'Helvetica Neue', Helvetica, arial, sans-serif;
 $base-font-family: $sans-serif;
@@ -48,6 +49,7 @@ $gray-darkest: #435159;
 $black-light: #323c42;
 $black: #1d2326;
 
+// map to deprecated values
 $light-gray-light: $gray-pale;
 $light-gray: $gray-pale;
 $light-gray-dark: $gray-lighter;
@@ -62,7 +64,7 @@ $blackest-black: $black;
 
 // v3
 $green: #9fa63b;
-$blue: #157bac;
+$blue: #1478a6;
 $blue-contrast: #096fa0;
 $light-green: #d2e2cb;
 $blue-alt: darken($blue, 5%); //for constrast, darker
@@ -79,8 +81,8 @@ $green-sea: #b1d39c;
 $green-dark: #657c60;
 $chart-green: #a5d78a;
 $green-darkest: #2f4d26;
-$green-dark-chart: #587f4c;
-$green-dark-chart-mid: lighten($green-dark-chart, 20%);
+$green-darker: #587f4c;
+$green-darker-mid: lighten($green-darker, 20%);
 
 // v2 - deprecate
 $putty: #f4f4f4;
@@ -91,21 +93,23 @@ $cobalt: #1075a5;
 
 
 // Font Colors
-$base-font-color: $dark-gray;
+$base-font-color: $black-light;
 $base-accent-color: $mid-blue;
 
 // Padding
 $base-padding: 1.25em; //20px
-$base-padding-lite: $base-padding / 3;
-$base-padding-small: 0.90em;
-$base-padding-base: 1em;
+$base-padding-lite: $base-padding / 3; //6.66px
+$base-padding-small: 0.7em; //11.2px Reduced from .9em
+$base-padding-base: 1em; //16px
 $base-padding-large: 1.875em; //30px
 $base-padding-extra: 3.125em; //50px
-$base-padding-jumbo: 3.8em;
+$base-padding-jumbo: 3.8em; //60.8px
 
 // Padding on rem scale
 $standard-padding: 1.25rem;
+$standard-padding-standard: 1rem;
 $standard-padding-lite: $standard-padding / 3;
+$standard-padding-small: 0.7rem; //11.2px Reduced from .9em
 $standard-padding-large: 1.875rem; //30px
 $standard-padding-extra: 3.125rem; //50px
 $standard-padding-jumbo: 3.8rem;
@@ -152,11 +156,15 @@ $form-border-radius: $base-border-radius;
 $form-box-shadow-focus: 0 0 0 2px $form-border-color-hover;
 
 // Map legend
-$opacity-federal: 0.35;
-$opacity-state: 0.2;
+$opacity-federal: 0.45;
+$opacity-state: 0.25;
 $legend-row-height: 1em;
 
 $greener-land-lightness-bump: lightness($green-land) * $opacity-state;
 $greenest-land-lightness-bump: lightness($green-land) * $opacity-federal;
 $greener-land: darken($green-land, $greener-land-lightness-bump);
 $greenest-land: darken($green-land, $greenest-land-lightness-bump);
+
+
+// SVG
+$svg-map-padding: 3.6%;

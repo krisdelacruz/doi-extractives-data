@@ -1,6 +1,15 @@
 ---
 title: Boone, Logan, and Mingo Counties, West Virginia | Case Studies
 title_display: Boone, Logan, and Mingo Counties, West Virginia
+description: The U.S. possesses the largest estimated recoverable coal reserves in the world. This resource abundance allowed coal to serve as the single largest source of domestic electricity generation for more than six decades. However, coal production has declined since 2007 due to increased competition from natural gas, as well as the effects of recent federal regulations.
+tag:
+- Local
+- Case study
+- Boone county
+- Logan county
+- Mingo county
+- West Virginia
+- Coal
 layout: content
 permalink: /case-studies/boone-logan-and-mingo/
 resource: coal
@@ -25,10 +34,6 @@ selector: list
 > The U.S. possesses the largest estimated recoverable coal reserves in the world. This resource abundance allowed coal to serve as the single largest source of domestic electricity generation for more than six decades.[^1] However, coal production has declined since 2007 due to increased competition from natural gas, as well as the effects of recent federal regulations.
 >
 > One of the most productive coal deposits in the country is the Central Appalachian Coal Basin, which supplies the numerous surface and underground mines of West Virginia. The counties in the southern half of the state maintain estimated recoverable coal reserves of 1.1 billion {{ "tons" | term_end:"ton" }}.[^2] In particular, the contiguous Boone, Logan, and Mingo counties have long been a center of coal exploration and extraction.
-
-{% include case-studies/_selector.html screen="mobile" %}
-
-{% include case-studies/_maps.html screen="mobile" %}
 
 ## Geology and history
 
@@ -71,12 +76,12 @@ The table below highlights the data sources used to compile this narrative, as w
 
 This case study is current as of August 2016. Many data sources are updated regularly, and may show more recent figures than are included here.
 
-<table>
+<table class="article_table">
   <thead>
     <tr>
-      <td>Measure</td>
-      <td>Data availability</td>
-      <td>Data gaps</td>
+      <th>Measure</th>
+      <th>Data availability</th>
+      <th>Data gaps</th>
     </tr>
   </thead>
   <tbody>

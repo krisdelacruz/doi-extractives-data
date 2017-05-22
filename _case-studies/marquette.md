@@ -1,6 +1,13 @@
 ---
 title: Marquette County, Michigan | Case Studies
 title_display: Marquette County, Michigan
+description: Iron ore is the primary mineral substance for the world’s iron and steel industries. Michigan is the second-largest producer of iron ore in the country behind Minnesota. All of Michigan’s iron-production operations are located in the northern reaches of the state, in Marquette County.
+tag:
+- Local
+- Case study
+- Marquette county
+- Michigan
+- Iron
 layout: content
 permalink: /case-studies/marquette/
 resource: iron
@@ -23,10 +30,6 @@ selector: list
 ---
 
 > Iron ore is the primary mineral substance for the world’s iron and steel industries. Michigan is the second-largest producer of iron ore in the country behind Minnesota. All of Michigan’s iron-production operations are located in the northern reaches of the state, in Marquette County.
-
-{% include case-studies/_selector.html screen="mobile" %}
-
-{% include case-studies/_maps.html screen="mobile" %}
 
 ## Geology and history
 
@@ -65,12 +68,12 @@ The table below highlights the data sources used to compile this narrative, as w
 
 This case study is current as of August 2016. Many data sources are updated regularly, and may show more recent figures than are included here.
 
-<table>
+<table class="article_table">
   <thead>
     <tr>
-      <td>Measure</td>
-      <td>Data availability</td>
-      <td>Data gaps</td>
+      <th>Measure</th>
+      <th>Data availability</th>
+      <th>Data gaps</th>
     </tr>
   </thead>
   <tbody>

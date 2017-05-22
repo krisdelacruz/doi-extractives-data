@@ -1,6 +1,13 @@
 ---
 title: 'St. Louis County, Minnesota | Case Studies'
 title_display: 'St. Louis County, Minnesota'
+description: "Iron ore is the primary mineral substance for the world's iron and steel industries. The U.S. is estimated to possess iron ore reserves of 110 billion tons, which can produce approximately 27 billion tons of metallic iron. In 2014, the U.S. was the world's eighth-largest producer of iron ore, generating an output of 57 million metric tons. 93% of usable iron ore was produced in Michigan and Minnesota, with an estimated value of $5 billion. In 2013, more than three-fourths of that output came from iron mines located in a single area of Minnesota: St. Louis County."
+tag:
+- Local
+- Case study
+- St. Louis county
+- Minnesota
+- Iron
 layout: content
 permalink: /case-studies/st-louis/
 resource: iron
@@ -23,10 +30,6 @@ selector: list
 ---
 
 > Iron ore is the primary mineral substance for the world's iron and steel industries. The U.S. is estimated to possess iron ore reserves of 110 billion tons, which can produce approximately 27 billion tons of metallic iron. In 2014, the U.S. was the world's eighth-largest producer of iron ore, generating an output of 57 million {{ "metric tons" | term_end:"metric ton" }}. 93% of usable iron ore was produced in Michigan and Minnesota, with an estimated value of $5 billion.[^1] In 2013, more than three-fourths of that output came from iron mines located in a single area of Minnesota: St. Louis County.[^2]
-
-{% include case-studies/_selector.html screen="mobile" %}
-
-{% include case-studies/_maps.html screen="mobile" %}
 
 ## Geology and history
 
@@ -69,12 +72,12 @@ The table below highlights data sources used to compile this narrative, as well 
 
 This case study is current as of August 2016. Many data sources are updated regularly, and may show more recent figures than are included here.
 
-<table>
+<table class="article_table">
   <thead>
     <tr>
-      <td>Measure</td>
-      <td>Data availability</td>
-      <td>Data gaps</td>
+      <th>Measure</th>
+      <th>Data availability</th>
+      <th>Data gaps</th>
     </tr>
   </thead>
   <tbody>

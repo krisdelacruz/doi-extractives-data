@@ -78,22 +78,19 @@ data/national_all_production.yml:
 		-c _meta/national_all_production.yml \
 		-o _$@
 
-data/exports: tables/exports \
+data/exports: \
 	data/state_exports.yml \
 	data/national_exports.yml
 
 data/state_exports.yml:
 	$(query) --format ndjson " \
 		SELECT \
-			state, year, \
-			ROUND(value, 2) AS dollars, \
-			ROUND(share * 100, 2) AS percent, \
-			commodity \
+			state, year, commodity, \
+			ROUND(SUM(value), 2) AS dollars \
 		FROM exports \
-		WHERE \
-			state != 'US' \
-		ORDER BY state, year" \
-		| $(nestly) --if ndjson \
+		GROUP BY state, year, commodity \
+		ORDER BY state, year, dollars DESC \
+		" | $(nestly) --if ndjson \
 			-c _meta/state_exports.yml \
 			-o _$@
 
@@ -101,9 +98,11 @@ data/national_exports.yml:
 	$(query) --format ndjson " \
 		SELECT \
 			'US' AS state, year, \
-			SUM(ROUND(value, 2)) AS dollars, \
+			ROUND(SUM(value), 2) AS dollars, \
 			commodity \
 		FROM exports \
+		WHERE \
+			commodity = 'Total' \
 		GROUP BY year, commodity" \
 		| $(nestly) --if ndjson \
 			-c _meta/national_exports.yml \
@@ -224,6 +223,18 @@ data/national_self_employment.yml:
 			-c _meta/state_jobs.yml \
 			-o _$@
 
+data/tribal_revenue.yml:
+	$(query) --format ndjson " \
+		SELECT \
+			year, commodity, revenue_type, \
+			ROUND(SUM(revenue), 2) AS revenue \
+		FROM tribal_revenue \
+		GROUP BY year, commodity, revenue_type \
+		ORDER BY year, revenue DESC" \
+		| $(nestly) --if ndjson \
+			-c _meta/tribal_revenue.yml \
+			-o _$@
+
 data/revenue: \
 	data/county_revenue \
 	data/national_revenues.yml \
@@ -234,7 +245,11 @@ data/revenue: \
 	data/offshore_revenue_areas \
 	data/offshore_revenue_regions.yml \
 	data/offshore_revenues_by_type.yml \
-	data/reconciliation.yml
+	data/reconciliation \
+	data/tribal_revenue.yml \
+	data/national_revenues_other_revenues.yml \
+	data/national_revenues_civil_penalties.yml \
+	data/national_revenues_inspection_fees.yml
 
 data/county_revenue:
 	$(query) --format ndjson " \
@@ -261,11 +276,12 @@ data/federal_disbursements.yml:
 	$(query) --format ndjson " \
 		SELECT \
 			region, source, fund, year, \
-			ROUND(dollars, 2) AS dollars \
+			ROUND(SUM(dollars), 2) AS dollars \
 		FROM federal_disbursements \
 		WHERE \
 			dollars > 0 \
-		ORDER BY year, dollars DESC" \
+		GROUP BY region, source, fund, year \
+		ORDER BY year, dollars DESC, fund" \
 		| $(nestly) --if ndjson \
 			-c _meta/federal_disbursements.yml \
 			-o _$@
@@ -424,6 +440,61 @@ data/national_revenues_by_type.yml:
 			-c _meta/national_revenues_by_type.yml \
 			-o _$@
 
+data/national_revenues_by_type.yml:
+	$(query) --format ndjson " \
+		SELECT \
+			commodity, revenue_type, year, \
+			ROUND(revenue) AS revenue \
+		FROM national_revenue_type \
+		WHERE revenue IS NOT NULL \
+		ORDER BY \
+			revenue DESC, commodity, year" \
+		| $(nestly) --if ndjson \
+			-c _meta/national_revenues_by_type.yml \
+			-o _$@
+
+data/national_revenues_other_revenues.yml:
+	$(query) --format ndjson " \
+		SELECT \
+				year, ROUND(SUM(revenue)) AS revenue \
+		FROM national_revenue_type \
+		WHERE \
+				revenue_type = 'Other Revenues' AND \
+				commodity == 'None' \
+		GROUP BY \
+				year, revenue" \
+		| $(nestly) --if ndjson \
+					-c _meta/national_revenues_other.yml \
+					-o _$@
+
+data/national_revenues_civil_penalties.yml:
+	$(query) --format ndjson " \
+		SELECT \
+				year, ROUND(SUM(revenue)) AS revenue \
+		FROM national_revenue_type \
+		WHERE \
+				revenue_type = 'Civil Penalties' AND \
+				commodity == 'None' \
+		GROUP BY \
+				year, revenue" \
+		| $(nestly) --if ndjson \
+					-c _meta/national_revenues_other.yml \
+					-o _$@
+
+data/national_revenues_inspection_fees.yml:
+	$(query) --format ndjson " \
+		SELECT \
+				year, ROUND(SUM(revenue)) AS revenue \
+		FROM national_revenue_type \
+		WHERE \
+				revenue_type = 'Inspection Fees' AND \
+				commodity == 'None' \
+		GROUP BY \
+				year, revenue" \
+		| $(nestly) --if ndjson \
+					-c _meta/national_revenues_other.yml \
+					-o _$@
+
 data/offshore_revenues_by_type.yml:
 	$(query) --format ndjson " \
 		SELECT \
@@ -437,17 +508,17 @@ data/offshore_revenues_by_type.yml:
 			-c _meta/offshore_revenues_by_type.yml \
 			-o _$@
 
-data/reconciliation.yml:
+data/reconciliation:
 	$(query) --format ndjson " \
 		SELECT \
-			company, revenue_type, \
+			year, company, revenue_type, \
 			reported_gov, reported_company, reported_note, \
 			variance_dollars, variance_percent, variance_material \
 		FROM reconciliation \
 		ORDER BY reported_gov DESC, company, revenue_type" \
 		| $(nestly) --if ndjson \
 			-c _meta/reconciliation.yml \
-			-o _$@
+			-o '_$@/{year}.yml'
 
 data/offshore_revenue_regions.yml:
 	$(query) --format ndjson " \
@@ -603,11 +674,14 @@ tables/county_revenue: data/revenue/onshore.tsv
 	$(tables) -t ndjson -n county_revenue -i $$tmp && \
 	rm $$tmp
 
-tables/reconciliation: data/reconciliation/revenue.tsv
+tables/reconciliation: data/reconciliation/output
 	@$(call drop-table,reconciliation)
-	tmp=$^.ndjson; \
-	$(tito) --map ./data/reconciliation/transform.js -r tsv $^ > $$tmp && \
-	$(tables) -t ndjson -n reconciliation -i $$tmp && \
+	tmp=$^/all.ndjson; \
+	for revenue_filename in $^/????.tsv; do \
+		$(tito) -r tsv --map ./data/reconciliation/transform.js \
+			$$revenue_filename >> $$tmp; \
+	done; \
+	$(tables) -i $$tmp -t ndjson -n reconciliation && \
 	rm $$tmp
 
 tables/civil_penalties_revenue: data/revenue/civil-penalties.tsv
@@ -616,6 +690,11 @@ tables/civil_penalties_revenue: data/revenue/civil-penalties.tsv
 	$(tito) --map ./data/revenue/transform-civil-penalties.js -r tsv $^ > $$tmp && \
 	$(tables) -t ndjson -n civil_penalties_revenue -i $$tmp && \
 	rm $$tmp
+
+tables/tribal_revenue: data/revenue/tribal.tsv
+	@$(call drop-table,tribal_revenue)
+	$(tito) --map ./data/revenue/transform-tribal.js -r tsv $^ \
+		| $(tables) -t ndjson -n tribal_revenue
 
 tables/federal_production: data/federal-production/federal-production.tsv
 	@$(call drop-table,federal_local_production)
@@ -635,13 +714,13 @@ tables/all_production: data/all-production/product
 	rm $$tmp
 	@$(call load-sql,data/all-production/rollup.sql)
 
-tables/company_revenue: data/company/years
+tables/company_revenue: data/company-revenue/output
 	@$(call drop-table,company_revenue)
 	tmp=$^/all.ndjson; \
 	for company_filename in $^/????.tsv; do \
 		filename="$${company_filename##*/}"; \
 		COMPANY_YEAR="$${filename%%.*}"; \
-		$(tito) -r tsv --map ./data/company/transform.js \
+		$(tito) -r tsv --map ./data/company-revenue/transform.js \
 			$$company_filename >> $$tmp; \
 	done; \
 	$(tables) -i $$tmp -t ndjson -n company_revenue && \
@@ -672,16 +751,18 @@ tables/gdp: data/gdp/regional.tsv
 tables/exports: data/exports/exports-by-industry.tsv
 	@$(call drop-table,exports)
 	$(call load-table,$^,exports)
+	@$(call load-sql,data/exports/rollup.sql)
 
 tables/disbursements: \
 	tables/federal_disbursements \
 	tables/disbursements_historic_preservation
 	@$(call load-sql,data/disbursements/rollup.sql)
 
-tables/federal_disbursements: data/disbursements/federal-pivot.tsv
+tables/federal_disbursements: data/disbursements/county-level.tsv
 	@$(call drop-table,federal_disbursements)
-	$(tito) -r tsv --map ./data/disbursements/transform-federal.js $^ \
-		| $(tables) -t ndjson -n federal_disbursements
+	$(tito) -r tsv --map ./data/disbursements/transform-county-level.js $^ > $^.ndjson
+	$(tables) -t ndjson -n federal_disbursements -i $^.ndjson
+	rm $^.ndjson
 
 tables/disbursements_historic_preservation: data/disbursements/historic-preservation.tsv
 	@$(call drop-table,disbursements_historic_preservation)

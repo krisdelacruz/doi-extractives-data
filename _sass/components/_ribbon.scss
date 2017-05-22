@@ -10,7 +10,7 @@
 //       <p class="ribbon-hero-description">Interacting with the data helps shed light on where natural resources in the U.S. are extracted, how they contribute to national revenues, and how they affect state and local economies.</p>
 //       <p class="ribbon-hero-description">We have information from government sources on <a href="#revenue">revenue</a>, <a href="#production">production</a>, and <a href="#economic-impact">economic impact</a>. Several datasets are new in 2015, including <a href="{{ site.baseurl }}/explore/federal-production/">federal production</a> and <a href="{{ site.baseurl }}/explore/federal-revenue-by-company/">federal revenue by company</a> information.</p>
 //     </div>
-//     <div class="container-right-4 ribbon-card-column ribbon-card-has-image ribbon-card">
+//     <div class="container-right-4 ribbon-card-column ribbon-card">
 //       <figure class="ribbon-card-top">
 //         <a href="{{site.baseurl}}/explore/#revenue/">
 //           <img class="ribbon-card-image" src="{{ site.baseurl }}/img/explore-landing-intro.png" alt="Map of the US with the Gulf of Mexico highlighted. Total U.S. revenue: 12,261,828,343. Gulf of Mexico revenue: 7,572,080,117. Calendar year 2013.">
@@ -27,7 +27,7 @@
   background-color: $gray-pale;
   border: 0;
   padding-bottom: 0;
-  padding-top: $base-padding-extra;
+  padding-top: 0;
   text-align: center;
 
   &.ribbon-card-column {
@@ -40,29 +40,11 @@
       border-bottom: 4px solid $white;
     }
   }
+}
 
-  &.ribbon-card-has-image {
-    padding-top: 0;
-
-    .ribbon-card-top {
-      margin: 0;
-      padding-top: 0;
-
-      .ribbon-card-image {
-        background-color: $gray-pale;
-        border: 0;
-        padding-left: 20%;
-        padding-right: 20%;
-        width: 100%;
-      }
-    }
-  }
-
-  &.ribbon-card-no-margin {
-    .ribbon-card-top {
-      margin: 0;
-    }
-  }
+.ribbon-card,
+.ribbon-card-column {
+  border-top: 4px solid $white;
 }
 
 .ribbon-card-top {
@@ -72,11 +54,47 @@
   padding-left: $base-padding;
   padding-right: $base-padding;
   padding-top: 0;
-  text-align: center;
+  text-align: left;
+
+  &.ribbon-card-top-text {
+    display: flex;
+    flex-direction: column;
+
+    @include respond-to(small-to-huge) {
+      flex-direction: row;
+      justify-content: space-around;
+
+      > *:not(a) {
+        align-self: flex-start;
+        text-align: left;
+        width: 50%;
+      }
+
+      a {
+        text-align: center;
+      }
+
+      h2 {
+        @include heading('para-lg');
+        font-weight: $weight-bold;
+      }
+    }
+
+    > * {
+      align-self: center;
+      margin-bottom: $base-padding;
+      text-align: center;
+    }
+
+    h2 {
+      align-self: flex-start;
+      text-align: left;
+    }
+  }
 }
 
 .ribbon-card-top-text-header {
-  @include heading(para-md);
+  @include heading(para-lg);
   font-weight: $weight-bold;
   line-height: 1.3;
   margin-bottom: 0;
@@ -84,28 +102,24 @@
   text-align: left;
 }
 
-.ribbon-card-top-text-header-padded {
-  margin-bottom: $base-padding;
-}
-
 .ribbon-card-top-text-header-sub {
-  @include heading(para-md);
+  @include heading('para-lg');
 }
 
 .ribbon-card-top-list {
-  @include heading(para-md);
+  @include heading('para-md');
   margin-bottom: 1.25rem;
   padding-bottom: $base-padding-lite;
   text-align: left;
-
-  li {
-    line-height: 1.2;
-    padding-bottom: $base-padding-lite;
-  }
 }
 
 .ribbon-card-bottom {
   @include heading('para-sm');
+
+  @include respond-to(medium-down) {
+    @include heading('para-md');
+    margin-bottom: 0;
+  }
 
   background-color: $gray-light;
   color: $dark-gray;
@@ -134,16 +148,25 @@
 
 .ribbon {
   svg {
-    float: left;
     width: 100%;
+
+    @include respond-to(large-up) {
+      float: left;
+      width: 100%;
+    }
   }
 
   .ribbon-card {
-    padding-top: $base-padding-large;
     position: relative;
 
     &.ribbon-card-home {
       padding-top: $base-padding-extra;
+
+      @include respond-to(tiny-to-medium) {
+        &:last-of-type {
+          padding-top: 0;
+        }
+      }
     }
   }
 
@@ -151,11 +174,10 @@
     padding-bottom: $base-padding-large;
     padding-left: $base-padding;
     padding-right: $base-padding;
-    padding-top: $base-padding-large;
+    padding-top: $base-padding-extra;
 
     &.ribbon-hero-home {
       padding-bottom: $base-padding-jumbo;
-      padding-top: $base-padding-extra;
     }
 
     &.ribbon-hero-column {
@@ -200,12 +222,13 @@ svg {
     }
 
     .ribbon-card {
-      padding-top: 0;
       position: relative;
     }
 
     .svg-oil-rig {
       display: none;
+      float: left;
+      width: 100%;
 
       .rig-dollars {
         display: inline-block;
@@ -228,7 +251,7 @@ svg {
 
   .ribbon-card:not(.ribbon-card-column) {
     .ribbon-card-button {
-      bottom: 50%;
+      bottom: 60%;
       float: left;
       left: 12.5%;
       margin: 0;
@@ -242,38 +265,15 @@ svg {
         padding-top: $base-padding-large;
       }
     }
-
-    &.ribbon-card-has-image {
-      .ribbon-card-top {
-        padding-top: 0;
-
-        .ribbon-card-image {
-          padding-left: 30%;
-          padding-right: 30%;
-        }
-      }
-    }
   }
 }
-
-@include respond-to(tiny-to-small) {
-  .ribbon-card-top.ribbon-card-top-text > * {
-    margin-left: 10%;
-    margin-right: 10%;
-  }
-}
-
 
 @include respond-to(small-to-huge) {
   .ribbon .ribbon-hero,
-  .ribbon-card-top {
+  .ribbon-card-top,
+  .ribbon-card-bottom {
     padding-left: $page-padding;
     padding-right: $page-padding;
-
-    &.ribbon-card-top-text > * {
-      margin-left: 20%;
-      margin-right: 20%;
-    }
   }
 }
 
@@ -283,9 +283,13 @@ svg {
     border-left: 4px solid $white;
     border-right: 4px solid $white;
 
-    &:not(.ribbon-card-column) .ribbon-card-button {
-      float: none;
-      position: static;
+    &:not(.ribbon-card-column) {
+      border-top: 0;
+
+      .ribbon-card-button {
+        float: none;
+        position: static;
+      }
     }
   }
 
@@ -295,7 +299,6 @@ svg {
 
     .ribbon-card {
       align-self: stretch;
-      padding-top: $base-padding-large;
       position: relative;
     }
 
@@ -313,7 +316,7 @@ svg {
       width: 100%;
 
       .rig-dollars {
-        transform: inherit;
+        transform: scale(1) translate(48px);
       }
 
       .symbols {
@@ -354,7 +357,6 @@ svg {
 }
 
 @include respond-to(huge-up) {
-
   .ribbon-card-top {
     border-bottom: 4px solid $white;
   }
@@ -370,24 +372,23 @@ svg {
     }
   }
 
+  .ribbon .ribbon-card {
+    padding-top: $base-padding-large;
+  }
+
   .ribbon-card {
+
     &.ribbon-card-column {
       border-left: 4px solid $white;
       border-right: 4px solid $white;
+      border-top: 0;
+
 
       .ribbon-card-top {
         padding-top: 0;
       }
     }
 
-    &.ribbon-card-has-image {
-      .ribbon-card-top {
-        .ribbon-card-image {
-          padding-left: 5%;
-          padding-right: 5%;
-        }
-      }
-    }
   }
 }
 
@@ -395,13 +396,5 @@ svg {
   .container-page-wrapper.ribbon {
     margin-left: auto;
     margin-right: auto;
-  }
-}
-
-.ribbon-card-case_studies {
-  text-align: left;
-
-  p {
-    @include heading('para-md');
   }
 }

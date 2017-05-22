@@ -2,7 +2,10 @@
 {% assign federal_products_num = federal_products | size %}
 {% assign units_map = site.data.production_units %}
 {% assign county_federal_products = site.data.federal_county_production[state_id] %}
-{% assign year_range = site.data.years.federal_production | default: site.data.years.default | jsonify %}
+
+{% assign year_range = site.data.years.federal_production | default: site.data.years.default %}
+{% assign year = year_range | last | to_s | default: default_year %}
+{% assign year_range = year_range | jsonify %}
 
 <section id="federal-production" class="federal production">
 
@@ -18,7 +21,7 @@
 
     {% if federal_products_num == 0 %}
     <p>
-      ONRR collects detailed data about natural resources produced on federal land. According to that data, there was no natural resource production on federal land in {{  state_name }} in {{ year }}.
+      The Office of Natural Resources Revenue collects detailed data about natural resources produced on federal land. According to that data, there was no natural resource {{ "production" | term }} on federal land in {{  state_name }} in {{ year }}.
       <br>
       <a href="{{ site.baseurl }}/downloads/federal-production/" class="data-downloads">
         <icon class="fa fa-file-text-o u-padding-right"></icon>Data and documentation
@@ -28,7 +31,7 @@
     <div class="chart-selector-wrapper">
       {% include year-selector.html year_range=year_range %}
       <p class="chart-description">
-          ONRR collects detailed data about natural resources produced on federal land in {{ state_name }}.
+          The Office of Natural Resources Revenue collects detailed data about natural resource {{ "production" | term }} on federal land in {{ state_name }}.
           <br>
           <a href="{{ site.baseurl }}/downloads/federal-production/">
             <icon class="fa fa-file-text-o u-padding-right"></icon>Data and documentation
@@ -73,17 +76,22 @@
 
           <div class="chart-container">
 
-            <h4 class="chart-title">
-              <span>
-                {{ product_name }}
-                {% if units_title %} ({{ units_title }}){% endif %}
-              </span>
-            </h4>
+            {% assign chart_toggle = 'federal-production-figures-chart-{{ product_slug }}' | liquify %}
+            {% assign production_data = production_values | map_hash: "volume" %}
+            {%
+              include chart_title.html
+              chart_name=product_name
+              chart_toggle=chart_toggle
+              chart_values=production_data
+              units=long_units
+              is_icon=true
+              chart_units_title=units_title
+            %}
 
-            <figure class="chart">
+            <figure class="chart" id="{{ chart_toggle }}">
               <eiti-bar-chart
                 aria-controls="federal-production-figures-{{ product_slug }} federal-production-withheld"
-                data='{{ production_values | map_hash: "volume" | jsonify }}'
+                data='{{ production_data | jsonify }}'
                 x-range="{{ year_range }}"
                 x-value="{{ year }}"
                 data-units="{{ long_units }}">
@@ -165,34 +173,34 @@
 
         </div><!-- /.row-container -->
 
-      </section>
+      </section><!-- /.product.full-width -->
     {% endfor %}
 
-    </div><!-- /.chart-list -->
-
-    <section id="federal-production-withheld">
-      <!-- withheld products: {{ withheld_products | jsonify }} -->
     {% if withheld_products.size > 0 %}
-      <h3>Data withheld</h3>
-      <p>
-        Production volume in {{ state_name }} was
-        {{ 'withheld' | term }} for the following product(s):
-      </p>
-      <ul>
-        {% assign all_years = year_list | to_s %}
-        {% for product in withheld_products %}
-          {% assign product_years = '' | split: '' %}
-          {% for _year in product[1].volume %}
-            {% assign product_years = product_years | push: _year[0] %}
+      <section id="federal-production-withheld" class="withheld-products full-width">
+        <!-- withheld products: {{ withheld_products | map_hash: '0.name' | jsonify }} -->
+        <h4 class="chart-title">Data withheld</h4>
+        <p>
+          Production volume in {{ state_name }} was
+          {{ 'withheld' | term }} for the following product(s):
+        </p>
+        <ul class="list-unstyled">
+          {% assign all_years = year_list | to_s %}
+          {% for product in withheld_products %}
+            {% assign product_years = '' | split: '' %}
+            {% for _year in product[1].volume %}
+              {% assign product_years = product_years | push: _year[0] %}
+            {% endfor %}
+          <li>
+            {{ product[1].name | default: product[0] }}
+            ({{ product_years | year_range }})
+          </li>
           {% endfor %}
-        <li>
-          {{ product[1].name | default: product[0] }}
-          ({{ product_years | year_range }})
-        </li>
-        {% endfor %}
-      </ul>
+        </ul>
+      </section>
     {% endif %}
-    </section>
+
+    </div><!-- /.chart-list -->
 
   </section>
 

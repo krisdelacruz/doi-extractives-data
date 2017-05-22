@@ -1,7 +1,11 @@
 {% assign all_products = site.data.state_all_production[state_id].products %}
 {% assign units_map = site.data.production_units %}
-{% assign year_range = site.data.years.all_production | default: site.data.years.default | jsonify %}
+
+{% assign year_range = site.data.years.all_production | default: site.data.years.default %}
+{% assign year = year_range | last | to_s | default: default_year %}
+{% assign year_range = year_range | jsonify %}
 {% assign year_list = year_range | to_list %}
+
 {% assign commodity_names = site.data.commodity_names %}
 
 <section id="all-production" is="year-switcher-section" class="all-lands production">
@@ -22,9 +26,9 @@
     {% endif %}
 
     <p class="chart-description{% unless all_products %} no-selector{% endunless %}">
-      The U.S. Energy Information Administration collects data about all energy-related natural resources produced on federal, state, and privately owned land.
+      The Energy Information Administration collects data about all energy-related natural resources produced on federal, state, and privately owned land.
       <br>
-      <a href="{{site.baseurl}}/downloads/#production-all">
+      <a href="{{site.baseurl}}/downloads/#all-lands-and-waters">
         <icon class="fa fa-file-text-o u-padding-right"></icon>Data and documentation
       </a>
     </p>
@@ -46,11 +50,22 @@
 
     <section id="state-all-production-{{ product_slug }}" class="chart-item">
 
-      <h3 class="chart-title"><span>{{ product_name }}</span></h3>
-      <figure class="chart">
+      {% assign chart_toggle = 'state-all-production-figures-chart-{{ product_slug }}' | liquify %}
+      {% assign production_data = production_values | map_hash: "volume" %}
+
+      {%
+        include chart_title.html
+        chart_name=product_name
+        chart_toggle=chart_toggle
+        chart_values=production_data
+        units=long_units
+        is_icon=true
+      %}
+
+      <figure class="chart" id="{{ chart_toggle }}">
         <eiti-bar-chart
           aria-controls="state-all-production-figures-{{ product_slug }}"
-          data='{{ production_values | map_hash: "volume" | jsonify }}'
+          data='{{ production_data | jsonify }}'
           x-range="{{ year_range }}"
           x-value="{{ year }}"
           data-units="{{ long_units }}">

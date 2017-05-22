@@ -6,6 +6,13 @@ permalink: /downloads/disbursements/
 breadcrumb:
   - title: Downloads
     permalink: /downloads/
+description: "The amount of money earned from extraction of natural resources on federal lands that is disbursed to various legislated funds. Our fund overview dataset is from the Office of Natural Resources Revenue, which is part of the Department of the Interior. In addition, we have more detailed datasets on two of the funds: Land and Water Conservation Fund (LWCF) and National Historic Preservation Act (NHPA)."
+tag:
+- Data
+- Downloads
+- Documentation
+- USEITI data
+- Disbursements
 ---
 
 > The amount of money earned from extraction of natural resources on federal lands that is disbursed to various legislated funds. Our fund overview dataset is from the [Office of Natural Resources Revenue](http://www.onrr.gov/), which is part of the Department of the Interior. In addition, we have more detailed datasets on two of the funds: [Land and Water Conservation Fund](https://www.doi.gov/lwcf) (LWCF) and [National Historic Preservation Act](http://www.nps.gov/subjects/historicpreservation/NHPA-50.htm) (NHPA).
@@ -13,7 +20,7 @@ breadcrumb:
 Download fiscal year data:
 
 <ul class="downloads-download_links list-unstyled">
-  <li><a href="{{site.baseurl}}/downloads/disbursements_FY2012-2015_2016-03-04.xlsx"><icon class="icon-cloud icon-padded"></icon>Funds overview dataset (xlsx, 18 KB)</a></li>
+  <li><a href="{{site.baseurl}}/downloads/disbursements_FY2012-2016_2017-02-08.xlsx"><icon class="icon-cloud icon-padded"></icon>Funds data by state and county (xlsx, 36 KB)</a></li>
   <li><a href="{{site.baseurl}}/downloads/LWCF_incl-documentation_FY2011-2015_2016-09-15.xlsx"><icon class="icon-cloud icon-padded"></icon>LWCF dataset, includes docs (xlsx, 870 KB)</a></li>
   <li><a href="{{site.baseurl}}/downloads/historic_preservation_fund_FY2011-2015_2016-09-15.xlsx"><icon class="icon-cloud icon-padded"></icon>NHPA dataset (xlsx, 22 KB)</a></li>
 </ul>
@@ -24,7 +31,7 @@ We also have [notes on this data](https://github.com/18F/doi-extractives-data/wi
 
 ## Scope
 
-This dataset includes natural resource disbursements for U.S. federal lands and offshore areas, and Indian Lands. It does not include privately-owned lands, or U.S. state lands. The dataset is tracked and managed by the Department of the Interior’s Office of Natural Resources Revenue. It contains disbursement information to funds for fiscal years 2012-2013. Disbursements of revenue due to extractive activities on U.S. Federal lands occur monthly; this dataset is a sum of those disbursements by fiscal year.
+This dataset includes natural resource disbursements for U.S. federal lands and offshore areas, and Indian lands. It does not include privately-owned lands, or U.S. state lands. The dataset is tracked and managed by the Department of the Interior’s Office of Natural Resources Revenue. It contains disbursement information to funds for fiscal years 2012-2015. Disbursements of revenue due to extractive activities on U.S. federal lands occur monthly; this dataset is a sum of those disbursements by fiscal year.
 
 ## Data Publication
 

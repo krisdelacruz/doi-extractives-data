@@ -1,10 +1,17 @@
+/* eslint-disable no-console */
 (function(exports) {
 
   require('d3-svg-legend');
 
   var eiti = require('./../eiti');
   var WITHHELD_FLAG = 'Withheld';
-  var NO_DATA_FLAG = undefined; // jshint ignore:line
+  var NO_DATA_FLAG = undefined; // eslint-disable-line no-undef-init
+
+  function pixelize(d) {
+    return String(d).match(/px/)
+      ? d
+      : d + 'px';
+  }
 
   exports.EITIDataMap = document.registerElement('eiti-data-map', {
     prototype: Object.create(
@@ -29,6 +36,7 @@
             this.isWideView = true;
           }
           this.update('init');
+          this.cropMap();
         }},
 
         setYear: {value: function(year) {
@@ -52,6 +60,21 @@
             .text(year);
 
           this.update();
+        }},
+
+        cropMap: {value: function() {
+          var root = d3.select(this);
+
+          var svgMap = root.select('svg.county.map');
+          var svgContainer = root.select('.svg-container');
+
+          if (!svgMap.empty() && !svgContainer.empty()) {
+            svgContainer.style('padding-bottom', function() {
+              return pixelize(svgMap.node().getBoundingClientRect().height);
+            });
+          } else {
+            console.warn('cannot resize svg map because it doesn\'t exist');
+          }
         }},
 
         detectWidth: {value: function() {
@@ -87,7 +110,7 @@
 
         update: {value: function(init) {
           var hasData = [];
-          this.marks.data().every(function(d){
+          this.marks.data().every(function(d) {
             if (d === WITHHELD_FLAG) {
               hasData.push(WITHHELD_FLAG);
               return true;
@@ -129,12 +152,13 @@
             root.select('.details-container')
               .attr('aria-hidden', true)
               .select('button')
-                .attr('aria-expanded', false); // unexpand county-chart
+                // unexpand county-chart
+                .attr('aria-expanded', false);
           }
 
           var type = this.getAttribute('scale-type') || 'quantize';
           var scheme = this.getAttribute('color-scheme') || 'Blues';
-          var steps = this.getAttribute('steps') || 5;
+          var steps = this.getAttribute('steps') || 4;
           var format = this.getAttribute('format');
           var legendDelimiter = '–';
           var legendFormat = format === '$'
@@ -161,7 +185,7 @@
           shapePadding,
           shapeMargin;
 
-          var colors = colorbrewer[scheme][steps];
+          var colors = ['#e1f4fa', '#a1d4ed', '#3d95bd', '#005078'];
           if (!colors) {
             return console.error(
               'bad # of steps (%d) for color scheme:', steps, scheme
@@ -247,24 +271,26 @@
             }
 
           } else {
-            console.warn('this <eiti-data-map> element does not have an associated svg legend.');
+            console.warn(
+              '<eiti-data-map> does not have an associated svg legend:', this
+            );
           }
 
           // If the legend is 'horizontal',
           // then shift the text and label from
           // its default settings
-          if (orient == 'horizontal') {
+          if (orient === 'horizontal') {
             var cumulative = 0;
 
             svgLegend.select('.legendCells')
               .selectAll('.cell')
-                .datum(function(){
+                .datum(function() {
                   return d3.select(this)
                     .select('.label')
                     .node()
                     .getComputedTextLength();
                 })
-                .attr('transform',function(textWidth){
+                .attr('transform', function(textWidth) {
                   var shift = cumulative;
                   var s = settings.horizontal;
                   var margin = s.width + s.padding + s.margin;
@@ -272,7 +298,7 @@
                   return 'translate(' + shift + ', 0)';
                 })
                 .select('text')
-                   .attr('transform',function(){
+                   .attr('transform',function() {
                     var s = settings.horizontal;
                     var padding = s.padding + s.width;
                     return 'translate(' + padding + ', 10)';
@@ -280,23 +306,7 @@
           }
           // end horizontal legend shift
 
-          // start trim height on map container
-          var svgContainer = d3.select(this)
-            .selectAll('.svg-container[data-dimensions]')
-            .datum(function() {
-              var multiplier = this.classList.contains('wide')
-                ? 100 + 9
-                : 65.88078 + 10;
 
-              return +this.getAttribute('data-dimensions') * multiplier;
-            });
-
-          function percentage(d) {
-            return d + '%';
-          }
-
-          svgContainer.style('padding-bottom', percentage);
-          // end trim
           if (init) {
             this.setYear('2015');
           }

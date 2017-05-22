@@ -31,11 +31,9 @@ body {
   ol {
     @include heading('para-sm');
 
-    font-weight: 200;
+    font-weight: $weight-book;
     list-style-type: decimal;
-    padding-bottom: $base-padding;
     padding-left: $base-padding;
-    padding-top: $base-padding-lite;
 
     &:target {
       background-color: $mid-blue;
@@ -43,7 +41,7 @@ body {
   }
 
   p {
-    padding-bottom: $base-padding-lite;
+    @include heading('para-md');
   }
 
   li {
@@ -54,17 +52,20 @@ body {
 .footnote {
   @include heading('para-sm');
   @extend .link-charlie;
+  @include font-size(0.75);
+
+  color: $blue;
+  font-weight: $weight-book;
+  line-height: $base-font-size;
   vertical-align: super; // 2
 }
 
-// $default-offset: 130px;
-
-// *[id^="#fn:"],
-// *[id^="#fnref:"],
-// .hashoffset {
-//   margin-top: -1 * $default-offset;
-//   padding-top: $default-offset;
-// }
+table sup {
+  padding-left: $base-padding-lite / 2;
+  position: relative;
+  top: 0.2em;
+  vertical-align: baseline;
+}
 
 [id^="fn:"]:target p {
   font-weight: bold;

@@ -310,18 +310,18 @@
    * window.addEventListener('resize', throttle(someFunction, 150, window));
    */
   eiti.util.throttle = function throttle(fn, threshhold, scope) {
-    threshhold || (threshhold = 250);
+    threshhold = threshhold || 250;
     var last,
         deferTimer;
-    return function () {
+    return function() {
       var context = scope || this;
 
-      var now = +new Date,
+      var now = Date.now(),
           args = arguments;
       if (last && now < last + threshhold) {
         // hold on to it
         clearTimeout(deferTimer);
-        deferTimer = setTimeout(function () {
+        deferTimer = setTimeout(function() {
           last = now;
           fn.apply(context, args);
         }, threshhold);
@@ -427,6 +427,29 @@
         return suffix[s] || s;
       })
       .replace(/\.0+$/, '');
+    };
+  })();
+
+  /**
+   * This is a format transform that turns a value
+   * into its si equivalent
+   *
+   * @param {String} str the formatted string
+   * @return {String} the string with a specified number of significant figures
+   */
+  eiti.format.siValue = (function() {
+    var suffix = {k: 1000, M: 1000000, G: 1000000000 };
+    return function(str) {
+      var number;
+      str = str.replace(/(\.0+)?([kMG])$/, function(_, zeroes, s) {
+        number = str.replace(s, '').toString() || str;
+        return (+number * suffix[s]);
+      }).replace(/\.0+$/, '');
+      if (number) {
+        return str.slice(number.length, str.length);
+      } else {
+        return str;
+      }
     };
   })();
 

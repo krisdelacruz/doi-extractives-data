@@ -13,7 +13,6 @@
   // common 3rd-party dependencies
   exports.queue = require('d3-queue');
   exports.topojson = require('topojson');
-  exports.colorbrewer = require('colorbrewer');
   exports.$ = exports.jQuery = require('jquery');
 
   // EITI site-wide common code
@@ -26,9 +25,6 @@
   exports.EITISlider = require('../components/eiti-slider');
   exports.EITIToggle = require('../components/eiti-toggle');
 
-  // FIXME: does this export anything?
-  require('../components/search');
-
   // XXX List.js's node module isn't CommonJS compatible, so we have to use a
   // built version.
   exports.List = require('../vendor/list');
@@ -36,12 +32,13 @@
   exports.Glossary = require('../components/glossary');
   exports.Accordion = require('../components/accordion');
 
-  $(function () {
-    var glossary = new exports.Glossary(),
-      accordion = new exports.Accordion();
+  exports.$(function() {
+    /* eslint-disable no-unused-vars */
+    var glossary = new exports.Glossary();
+    var accordion = new exports.Accordion();
+    /* eslint-enable no-unused-vars */
   });
 
   var svg4everybody = require('svg4everybody');
   svg4everybody();
-
 })(window);

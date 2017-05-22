@@ -1,6 +1,19 @@
 ---
 title: Case Studies
 layout: case-studies-landing
+description: While extractive industries made up 2.6% of the U.S. GDP in 2013, they play a much larger role in some local communities. For example, extractive industries make up more than a third of Wyoming’s GDP. At the county level, certain communities may be even more economically dependent on extractive industries.
+tag:
+- Local
+- Case studies
+- Community
+- Impact
+- Revenue sustainability
+- Iron
+- Copper
+- Gold
+- Coal
+- Oil
+- Gas
 permalink: /case-studies/
 nav_items:
   - name: title

@@ -2,7 +2,8 @@
 layout: default
 nav_name: 'explore'
 nav_items:
-  - name: overview
+  - name: title
+    mobile_name: top
     title: Top
   - name: production
     title: Production
@@ -57,10 +58,13 @@ nav_items:
 
 {% assign state_ref = page.id | upcase %}
 {% assign year = site.data.years.now | to_s %}
+{% assign default_year = year %}
+
 {% assign oilgas = 'Oil & Gas (Non-Royalty)' %}
 {% assign commodity_names = site.data.commodity_names %}
 {% assign top_products = 10 %}
-{% assign steps = 5 %}
+{% assign steps = 4 %}
+
 
 {% assign is_priority_state = page.priority %}
 {% assign is_case_study_state = page.case_study %}
@@ -78,6 +82,7 @@ nav_items:
 
 <main id="state-{{ state_id }}" class="container-page-wrapper layout-state-pages">
   <section class="container">
+
     <div>
       <a class="breadcrumb" href="{{ site.baseurl }}/explore/">Explore data</a>
       /
@@ -92,19 +97,30 @@ nav_items:
 
       </section>
 
+      {% include layout/mobile-nav.html %}
+
       <section id="production">
         <h2>Production</h2>
+        <!-- EIA state profile link -->
+        <p>
+          <strong>Energy production:</strong> The U.S. Energy Information Administration publishes a profile of <a href="http://www.eia.gov/state/?sid={{ state_ref }}">energy production and usage in {{ state_name }}</a>.
+        </p>
         {%
           include location/key-all-production-summary.html
           location_id=state_id
           location_name=state_name
           year=year
         %}
-        <p>
-          The U.S. Energy Information Administration (EIA) publishes a profile of <a href="http://www.eia.gov/state/?sid={{ state_ref }}">{{ state_name }}’s energy production and usage</a>.
-        </p>
+        <!-- State production intro (for opt-in states) -->
         {% if page.state_production %}
           {{ page.state_production | liquify | markdownify }}
+        {% else %}
+          <!-- USGS state profile link; only auto-generated for non-opt-in states because this is included in the custom production summary for opt-in states -->
+          {% unless state_id == "DC" %}
+          <p>
+            <strong>Nonenergy minerals:</strong> The U.S. Geological Survey publishes information about nonenergy mineral extraction in the <a href="http://minerals.usgs.gov/minerals/pubs/state/{{ state_id | downcase }}.html">USGS Minerals Yearbook for {{ state_name }}</a>.
+          </p>
+          {% endunless %}
         {% endif %}
 
         {% include location/section-all-production.html %}
@@ -112,7 +128,12 @@ nav_items:
         {% include location/section-federal-production.html %}
 
         {% if page.state_land %}
-          <h3 id="state-production">Production on state land in {{ state_name }}</h3>
+          {% assign header_text = 'Production on state land in {{ state_name }}' | liquify %}
+          {%
+            include sticky-header.html
+            header_text=header_text
+            header_id='state-production'
+          %}
           {{ page.state_land | liquify | markdownify }}
         {% endif %}
         {% if page.state_land_production %}
@@ -128,8 +149,13 @@ nav_items:
 
         {% include location/section-disbursements.html %}
 
-        <section id="state-disbursements" class="disbursements">
-          <h3{% if page.opt_in == true %} class="sticky"{% endif %}>State disbursements</h3>
+        <section class="disbursements">
+
+          {%
+            include sticky-header.html
+            header_text='State disbursements'
+            header_id='state-disbursements'
+          %}
 
           {% if page.opt_in == true %}
             {% include location/opt-in/state-disbursements.html location_id=state_id %}
@@ -143,6 +169,10 @@ nav_items:
       {% unless page.offshore == true %}
       <section id="economic-impact">
         <h2>Economic impact</h2>
+
+        <p>USEITI economic impact data covers {{ "gross domestic product" | term:"Gross domestic product (GDP)" }} and two different types of jobs data.</p>
+
+        <p>To learn more about direct energy employment across all sectors of the U.S. economy, another useful resource is <a href="https://www.energy.gov/jobstrategycouncil/downloads/2017-us-energy-employment-report">2017 U.S. Energy and Employment Report</a> from the Department of Energy. This report has a separate <a href="https://www.energy.gov/sites/prod/files/2017/01/f34/us-energy-jobs-states-2017.pdf">state-by-state analysis of energy employment</a>.</p>
         {% if page.state_impact %}
         {{ page.state_impact | liquify | markdownify }}
 
@@ -174,7 +204,7 @@ nav_items:
     </div>
 
 
-    <div class="sticky sticky_nav container-right-3">
+    <div class="sticky sticky_nav sticky_nav-padded container-right-3">
       <h3 class="state-page-nav-title container">
         <div class="nav-title">{{ state_name }}</div>
         <figure is="data-map">

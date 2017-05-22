@@ -12,10 +12,11 @@ var config = {
     'state-pages.min': './js/src/state-pages.js',
     'company-revenue.min': './js/src/company-revenue.js',
     'reconciliation.min': './js/src/reconciliation.js',
+    'search.min': './js/src/search.js',
   },
 
   output: {
-    path: './js/lib',
+    path: __dirname + '/js/lib',
     filename: '[name].js',
     chunkFilename: '[id].js'
   },
