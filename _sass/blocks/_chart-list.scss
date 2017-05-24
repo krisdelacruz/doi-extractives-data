@@ -202,10 +202,8 @@
 
     font-weight: $weight-light;
     line-height: 20px;
-    padding: $base-padding-lite;
     padding-left: 0;
     padding-right: 0;
-    padding-top: $base-padding-lite;
 
     @include respond-to(small-up) {
       min-height: 85px;
